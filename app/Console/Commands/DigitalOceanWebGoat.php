@@ -44,19 +44,8 @@ class DigitalOceanWebGoat extends Command
         $adapter = new GuzzleHttpAdapter($key);
         $digitalocean = new DigitalOceanV2($adapter);
 
-        $size = $digitalocean->size();
-        $sizes = $size->getAll();
-
-        $collection = collect($sizes);
-        $cheap = $collection->filter(function($item) {
-            return $item->priceMonthly == 5;
-        })->first();
-
-        $image = $digitalocean->image();
-        $images = $image->getAll(['type' => 'distribution']);
-
-        $region = 'sfo2';
-        $size = $cheap->slug;
+        $region = $this->getAvailableRegion($digitalocean);
+        $size = 's-1vcpu-1gb';
         $image = 'ubuntu-16-04-x64';
         $backups = false;
         $ipv6 = false;
@@ -69,13 +58,20 @@ class DigitalOceanWebGoat extends Command
         $name = "web-goat-{$region}-{$size}";
 
         $droplet = $digitalocean->droplet();
-
-        try {
-            $result = $droplet->create($name, $region, $size, $image);
-        } catch(\Exception $e) {
-            dd($e);
-        }
+        $result = $droplet->create($name, $region, $size, $image);
 
         dd($result);
+    }
+
+    protected function getAvailableRegion(DigitalOceanV2 $digitalocean)
+    {
+        $regions = $digitalocean->region()->getAll();
+        $collection = collect($regions);
+
+        $filtered = $collection->filter(function ($value, $key) {
+            return in_array('s-1vcpu-1gb', $value->sizes);
+        });
+
+        return $filtered->random()->slug;
     }
 }
