@@ -44,6 +44,38 @@ class DigitalOceanWebGoat extends Command
         $adapter = new GuzzleHttpAdapter($key);
         $digitalocean = new DigitalOceanV2($adapter);
 
-       echo "key: {$key} \n";
+        $size = $digitalocean->size();
+        $sizes = $size->getAll();
+
+        $collection = collect($sizes);
+        $cheap = $collection->filter(function($item) {
+            return $item->priceMonthly == 5;
+        })->first();
+
+        $image = $digitalocean->image();
+        $images = $image->getAll(['type' => 'distribution']);
+
+        $region = 'sfo2';
+        $size = $cheap->slug;
+        $image = 'ubuntu-16-04-x64';
+        $backups = false;
+        $ipv6 = false;
+        $privateNetworking = false;
+        $sshKeys = [];
+        $userData = '';
+        $monitoring = false;
+        $volumes = [];
+        $tags = [];
+        $name = "web-goat-{$region}-{$size}";
+
+        $droplet = $digitalocean->droplet();
+
+        try {
+            $result = $droplet->create($name, $region, $size, $image);
+        } catch(\Exception $e) {
+            dd($e);
+        }
+
+        dd($result);
     }
 }
