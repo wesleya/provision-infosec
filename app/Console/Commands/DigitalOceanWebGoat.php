@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
+use DigitalOceanV2\DigitalOceanV2;
 
 class DigitalOceanWebGoat extends Command
 {
@@ -11,7 +13,7 @@ class DigitalOceanWebGoat extends Command
      *
      * @var string
      */
-    protected $signature = 'provision:web-goat {--provider=} {--api-key=}';
+    protected $signature = 'provision:web-goat {--api-key=}';
 
     /**
      * The console command description.
@@ -37,9 +39,11 @@ class DigitalOceanWebGoat extends Command
      */
     public function handle()
     {
-       $provider = $this->option('provider'); 
        $key = $this->option('api-key');
 
-       echo "provider: {$provider} key: {$key} \n";
+        $adapter = new GuzzleHttpAdapter($key);
+        $digitalocean = new DigitalOceanV2($adapter);
+
+       echo "key: {$key} \n";
     }
 }

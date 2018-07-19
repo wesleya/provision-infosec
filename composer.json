@@ -10,7 +10,8 @@
         "graham-campbell/digitalocean": "^5.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.6.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "toin0u/digitalocean-v2": "~2.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
