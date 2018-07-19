@@ -8,6 +8,8 @@ use DigitalOceanV2\DigitalOceanV2;
 
 class DigitalOceanWebGoat extends Command
 {
+    const SIZE = 's-1vcpu-1gb';
+
     /**
      * The name and signature of the console command.
      *
@@ -39,13 +41,22 @@ class DigitalOceanWebGoat extends Command
      */
     public function handle()
     {
+        /**
+         * @todo php artisan provision:web-goat --api-key=2861fa60d69f3ea8c9c0ab292a3ca4240dfffe6db8bc139d815d12af4194cbad
+         *
+         * 1. get bare bones init script running to install webgoat
+         * 2. get ssh key and IP tables working
+         * 3. start working on UI! OAuth, saving things to db so we can take out hardcoded items
+         *
+         */
+
        $key = $this->option('api-key');
 
         $adapter = new GuzzleHttpAdapter($key);
         $digitalocean = new DigitalOceanV2($adapter);
 
         $region = $this->getAvailableRegion($digitalocean);
-        $size = 's-1vcpu-1gb';
+        $size = self::SIZE;
         $image = 'ubuntu-16-04-x64';
         $backups = false;
         $ipv6 = false;
@@ -57,8 +68,7 @@ class DigitalOceanWebGoat extends Command
         $tags = [];
         $name = "web-goat-{$region}-{$size}";
 
-        $droplet = $digitalocean->droplet();
-        $result = $droplet->create($name, $region, $size, $image);
+        $result = $digitalocean->droplet()->create($name, $region, $size, $image);
 
         dd($result);
     }
@@ -69,7 +79,7 @@ class DigitalOceanWebGoat extends Command
         $collection = collect($regions);
 
         $filtered = $collection->filter(function ($value, $key) {
-            return in_array('s-1vcpu-1gb', $value->sizes);
+            return in_array(self::SIZE, $value->sizes);
         });
 
         return $filtered->random()->slug;
