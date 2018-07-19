@@ -44,10 +44,16 @@ class DigitalOceanWebGoat extends Command
         /**
          * @todo php artisan provision:web-goat --api-key=
          *
-         * 1. get bare bones init script running to install webgoat
-         * 2. get ssh key and IP tables working
-         * 3. start working on UI! OAuth, saving things to db so we can take out hardcoded items
-         *
+         * 0. Get Laravel and Mix working
+         * 1. Add menu to add provider
+         *      * Oauth
+         *      * save credentials to database
+         * 2. Add menu to provision application (webgoat)
+         *      * choose SSH key
+         *      * choose IP Address
+         *      * save instance data (ID, IP, etc) to database
+         * 3. Display instances back to user
+         * 4. Make script more robust
          */
 
        $key = $this->option('api-key');
