@@ -42,7 +42,7 @@ class DigitalOceanWebGoat extends Command
     public function handle()
     {
         /**
-         * @todo php artisan provision:web-goat --api-key=2861fa60d69f3ea8c9c0ab292a3ca4240dfffe6db8bc139d815d12af4194cbad
+         * @todo php artisan provision:web-goat --api-key=
          *
          * 1. get bare bones init script running to install webgoat
          * 2. get ssh key and IP tables working
