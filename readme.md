@@ -23,3 +23,44 @@ Provision UI
 ## Notes
 
 `$ php artisan provision:web-goat --api-key={my key}`
+
+## Home UI
+
+No Data
+
+```
+Add a provider
+```
+
+Partial Data
+
+```
+Providers
+
+provider 1 | Add New
+
+Applications
+
+a message about now we can create an app!
+
+a grid of all possible applications
+
+```
+
+Full Data
+
+```
+Providers
+
+provider 1 | provider 2 | Add New
+
+Applications
+
+app 1 | app 2 | Add New
+```
+
+## Provider UI
+
+```
+Big card buttons for each provider that you can click
+```

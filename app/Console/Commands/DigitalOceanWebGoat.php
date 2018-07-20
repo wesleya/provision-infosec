@@ -53,19 +53,7 @@ class DigitalOceanWebGoat extends Command
         $ipv6 = false;
         $privateNetworking = false;
         $sshKeys = ['c3:97:5a:92:c5:dd:56:0c:9c:98:a8:be:f1:b6:b9:c9'];
-        $userData = "
-#cloud-config
-
-runcmd:
-  - sudo apt-get update  
-  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"
-  - sudo apt-get update
-  - sudo apt-get install -y docker-ce
-  - docker pull webgoat/webgoat-8.0
-  - docker run -p 8080:8080 webgoat/webgoat-8.0 /home/webgoat/start.sh 
-  ";
+        $userData = $this->getUserData();
         $monitoring = false;
         $volumes = [];
         $tags = [];
@@ -86,5 +74,28 @@ runcmd:
         });
 
         return $filtered->random()->slug;
+    }
+
+    /**
+     * @todo convert this to a bash script so it can be used for other providers
+     * @todo put it somewhere where it can be accessed by all providers
+     *
+     * @return string
+     */
+    protected function getUserData()
+    {
+        return "
+#cloud-config
+
+runcmd:
+  - sudo apt-get update  
+  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"
+  - sudo apt-get update
+  - sudo apt-get install -y docker-ce
+  - docker pull webgoat/webgoat-8.0
+  - docker run -p 8080:8080 webgoat/webgoat-8.0 /home/webgoat/start.sh 
+  ";
     }
 }
