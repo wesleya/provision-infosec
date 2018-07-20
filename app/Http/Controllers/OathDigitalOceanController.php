@@ -16,6 +16,8 @@ class OathDigitalOceanController extends Controller
 
     public function create()
     {
-        return Socialite::driver('digitalocean')->redirect();
+        return Socialite::driver('digitalocean')
+            ->scopes(['read write'])
+            ->redirect();
     }
 }
