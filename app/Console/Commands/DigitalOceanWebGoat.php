@@ -41,21 +41,6 @@ class DigitalOceanWebGoat extends Command
      */
     public function handle()
     {
-        /**
-         * @todo php artisan provision:web-goat --api-key=
-         *
-         * 0. Get Laravel and Mix working, scaffold auth/users
-         * 1. Add menu to add provider
-         *      * Oauth
-         *      * save credentials to database
-         * 2. Add menu to provision application (webgoat)
-         *      * choose SSH key
-         *      * choose IP Address
-         *      * save instance data (ID, IP, etc) to database
-         * 3. Display instances back to user
-         * 4. Make script more robust
-         */
-
        $key = $this->option('api-key');
 
         $adapter = new GuzzleHttpAdapter($key);
