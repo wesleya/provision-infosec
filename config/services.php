@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'digitalocean' => [
+        'client_id' => env('DIGITAL_OCEAN_CLIENT_ID'),         // Your GitHub Client ID
+        'client_secret' => env('DIGITAL_OCEAN_CLIENT_SECRET'), // Your GitHub Client Secret
+        'redirect' => 'http://localhost:8080/oauth/digitalocean',
+    ]
 ];

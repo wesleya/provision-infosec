@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/oauth/digitalocean', 'OathDigitalOceanController@index');
+Route::post('/oauth/digitalocean', 'OathDigitalOceanController@create');

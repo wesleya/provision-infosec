@@ -1,0 +1,3 @@
+[submodule "docker-laravel"]
+	path = docker-laravel
+	url = https://github.com/wesleya/docker-laravel.git

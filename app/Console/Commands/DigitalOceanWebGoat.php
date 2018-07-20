@@ -44,7 +44,7 @@ class DigitalOceanWebGoat extends Command
         /**
          * @todo php artisan provision:web-goat --api-key=
          *
-         * 0. Get Laravel and Mix working
+         * 0. Get Laravel and Mix working, scaffold auth/users
          * 1. Add menu to add provider
          *      * Oauth
          *      * save credentials to database

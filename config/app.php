@@ -150,6 +150,9 @@ return [
         /*
          * Package Service Providers...
          */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        \SocialiteProviders\Manager\ServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -209,7 +212,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-	'DigitalOcean' => GrahamCampbell\DigitalOcean\Facades\DigitalOcean::class,
+	    'DigitalOcean' => GrahamCampbell\DigitalOcean\Facades\DigitalOcean::class,
     ],
 
 ];
