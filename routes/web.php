@@ -17,3 +17,6 @@ Route::get('/', function () {
 
 Route::get('/oauth/digitalocean', 'OathDigitalOceanController@index');
 Route::post('/oauth/digitalocean', 'OathDigitalOceanController@create');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
