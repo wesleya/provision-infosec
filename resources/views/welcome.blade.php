@@ -92,6 +92,10 @@
                       @csrf
                       <input class="btn btn-primary" type="submit" value="Digital Ocean">
                     </form>
+                    <form method="POST" action="/oauth/linode">
+                      @csrf
+                      <input class="btn btn-primary" type="submit" value="linode">
+                    </form>
                 </div>
             </div>
         </div>

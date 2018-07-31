@@ -38,6 +38,12 @@ return [
     'digitalocean' => [
         'client_id' => env('DIGITAL_OCEAN_CLIENT_ID'),         // Your GitHub Client ID
         'client_secret' => env('DIGITAL_OCEAN_CLIENT_SECRET'), // Your GitHub Client Secret
-        'redirect' => 'http://localhost:8080/oauth/digitalocean',
+        'redirect' => env('DIGITAL_OCEAN_REDIRECT'),
+    ],
+
+    'linode' => [
+        'client_id' => env('LINODE_CLIENT_ID'),
+        'client_secret' => env('LINODE_CLIENT_SECRET'),
+        'redirect' => env('LINODE_REDIRECT')
     ]
 ];
