@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Provision\DigitalOcean;
 use App\Provision\Linode;
+use App\Provision\ProvisionInterface;
 use Illuminate\Console\Command;
 
 class Provision extends Command
@@ -41,7 +42,20 @@ class Provision extends Command
     {
         $token = $this->option('token');
         $provider = $this->option('provider');
+        $provision = $this->getProvision($provider, $token);
 
+        $result = $provision->webGoat();
+
+        dd($result);
+    }
+
+    /**
+     * @param $provider
+     * @param $token
+     * @return ProvisionInterface
+     */
+    protected function getProvision($provider, $token)
+    {
         switch ($provider) {
             case 'digitalocean':
                 $provision = new DigitalOcean($token);
@@ -51,8 +65,6 @@ class Provision extends Command
                 break;
         }
 
-        $result = $provision->webGoat();
-
-        dd($result);
+        return $provision;
     }
 }

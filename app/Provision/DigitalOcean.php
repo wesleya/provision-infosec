@@ -4,7 +4,7 @@ namespace App\Provision;
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use DigitalOceanV2\DigitalOceanV2;
 
-class DigitalOcean
+class DigitalOcean implements ProvisionInterface
 {
     const SIZE = 's-1vcpu-1gb';
 
@@ -18,7 +18,7 @@ class DigitalOcean
 
     public function webGoat()
     {
-        $region = $this->getAvailableRegion($this->digitalocean);
+        $region = $this->getAvailableRegion();
         $size = self::SIZE;
         $image = 'ubuntu-16-04-x64';
         $backups = false;
@@ -36,9 +36,9 @@ class DigitalOcean
         return $result;
     }
 
-    protected function getAvailableRegion(DigitalOceanV2 $digitalocean)
+    protected function getAvailableRegion()
     {
-        $regions = $digitalocean->region()->getAll();
+        $regions = $this->digitalocean->region()->getAll();
         $collection = collect($regions);
 
         $filtered = $collection->filter(function ($value, $key) {

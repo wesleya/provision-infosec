@@ -12,9 +12,9 @@ class Linode
      */
     protected $adapter;
 
-    public function __construct($token)
+    public function __construct($adapter)
     {
-        $this->adapter = new GuzzleHttpAdapter($token);
+        $this->adapter = $adapter;
     }
 
     public function regions()
@@ -23,6 +23,37 @@ class Linode
 
         $result = $this->adapter->get($endpoint);
 
-        return json_decode($result);
+        return collect(json_decode($result)->data);
+    }
+
+    public function types()
+    {
+        $endpoint = self::ENDPOINT . 'linode/types';
+
+        $result = $this->adapter->get($endpoint);
+
+        return collect(json_decode($result));
+    }
+
+    public function images()
+    {
+        $endpoint = self::ENDPOINT . 'images';
+
+        $result = $this->adapter->get($endpoint);
+
+        return collect(json_decode($result)->data);
+    }
+
+    public function create($size, $image, $region)
+    {
+        $endpoint = self::ENDPOINT . 'linode/instances';
+        $data = [
+            "type" => $size,
+            "region" => $region,
+            // "image" => $image,
+            "label" => "web-goat-{$region}-{$size}"
+        ];
+
+        return $this->adapter->post($endpoint, $data);
     }
 }
