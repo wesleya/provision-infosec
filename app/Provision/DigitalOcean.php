@@ -1,52 +1,24 @@
 <?php
+namespace App\Provision;
 
-namespace App\Console\Commands;
-
-use Illuminate\Console\Command;
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use DigitalOceanV2\DigitalOceanV2;
 
-class DigitalOceanWebGoat extends Command
+class DigitalOcean
 {
     const SIZE = 's-1vcpu-1gb';
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'provision:web-goat {--api-key=}';
+    protected $digitalocean;
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Provision Web Goat';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct($token)
     {
-        parent::__construct();
+        $adapter = new GuzzleHttpAdapter($token);
+        $this->digitalocean = new DigitalOceanV2($adapter);
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function webGoat()
     {
-       $key = $this->option('api-key');
-
-        $adapter = new GuzzleHttpAdapter($key);
-        $digitalocean = new DigitalOceanV2($adapter);
-
-        $region = $this->getAvailableRegion($digitalocean);
+        $region = $this->getAvailableRegion($this->digitalocean);
         $size = self::SIZE;
         $image = 'ubuntu-16-04-x64';
         $backups = false;
@@ -59,9 +31,9 @@ class DigitalOceanWebGoat extends Command
         $tags = [];
         $name = "web-goat-{$region}-{$size}";
 
-        $result = $digitalocean->droplet()->create($name, $region, $size, $image, $backups, $ipv6, $privateNetworking, $sshKeys, $userData);
+        $result = $this->digitalocean->droplet()->create($name, $region, $size, $image, $backups, $ipv6, $privateNetworking, $sshKeys, $userData);
 
-        dd($result);
+        return $result;
     }
 
     protected function getAvailableRegion(DigitalOceanV2 $digitalocean)
@@ -76,12 +48,6 @@ class DigitalOceanWebGoat extends Command
         return $filtered->random()->slug;
     }
 
-    /**
-     * @todo convert this to a bash script so it can be used for other providers
-     * @todo put it somewhere where it can be accessed by all providers
-     *
-     * @return string
-     */
     protected function getUserData()
     {
         return "
