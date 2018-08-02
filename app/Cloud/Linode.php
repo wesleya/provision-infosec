@@ -52,7 +52,8 @@ class Linode
             "region" => $region,
             "image" => $image,
             "label" => "web-goat-{$region}-{$size}",
-            "root_pass" => 'testPassword1!'
+            "root_pass" => 'testPassword1!',
+            'stackscript_id' => '331713'
         ];
 
         return $this->adapter->post($endpoint, $data);

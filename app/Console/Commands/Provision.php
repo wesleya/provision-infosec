@@ -21,7 +21,7 @@ class Provision extends Command
      *
      * @var string
      */
-    protected $description = 'Provision Web Application';
+    protected $description = 'Provision Web Application {host}/WebGoat/login';
 
     /**
      * Create a new command instance.
