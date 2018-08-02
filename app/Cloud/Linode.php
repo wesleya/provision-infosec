@@ -50,8 +50,9 @@ class Linode
         $data = [
             "type" => $size,
             "region" => $region,
-            // "image" => $image,
-            "label" => "web-goat-{$region}-{$size}"
+            "image" => $image,
+            "label" => "web-goat-{$region}-{$size}",
+            "root_pass" => 'testPassword1!'
         ];
 
         return $this->adapter->post($endpoint, $data);

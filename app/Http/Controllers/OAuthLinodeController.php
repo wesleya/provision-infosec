@@ -17,7 +17,7 @@ class OAuthLinodeController extends Controller
     public function create()
     {
         return Socialite::driver('linode')
-            ->scopes(['linodes:read_write'])
+            ->scopes(['linodes:read_write', 'images:read_write'])
             ->redirect();
     }
 }
