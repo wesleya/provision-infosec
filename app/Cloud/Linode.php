@@ -51,11 +51,12 @@ class Linode
             "type" => $size,
             "region" => $region,
             "image" => $image,
-            "label" => "web-goat-{$region}-{$size}",
+            "label" => "web-goat-{$size}",
             "root_pass" => 'testPassword1!',
-            'stackscript_id' => '331713'
+            "stackscript_id" => 331713,
+            "booted" => true
         ];
 
-        return $this->adapter->post($endpoint, $data);
+        return $this->adapter->post($endpoint, $data)->getContents();
     }
 }
