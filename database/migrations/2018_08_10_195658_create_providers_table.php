@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDigitaloceansTable extends Migration
+class CreateProvidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateDigitaloceansTable extends Migration
      */
     public function up()
     {
-        Schema::create('digitaloceans', function (Blueprint $table) {
+        Schema::create('providers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->string('access_token');
+            $table->unsignedInteger('user_id');
+            $table->tinyInteger('type');
+            $table->tinyInteger('status');
+            $table->string('token');
             $table->string('refresh_token');
-            $table->string('digitalocean_id');
+            $table->dateTime('expires');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +34,6 @@ class CreateDigitaloceansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('digitaloceans');
+        Schema::dropIfExists('providers');
     }
 }
