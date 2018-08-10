@@ -1,24 +1,25 @@
 
 ## To Do
 
-Provision Script
+Provision Script To Do
 
 * setup IP tables
 * install SSH key
 * run webgoat on supervisord
 
-Add Provider UI
+UI To Do
 
-* Oauth
-* save credentials to database
-* create a script to renew api key
-
-Provision UI
-
-* choose SSH key
-* choose IP address
-* save instance data
 * kickoff provision script
+* save instance data
+* show instance data somewhere
+* show provider data somewhere
+
+Maintenance To Do
+
+* choose IP address for application access
+* script to renew tokens
+* refactor to use socialite package for linode
+* refactor to sdk for linode
 
 ## Notes
 
@@ -35,10 +36,6 @@ Add a provider
 Partial Data
 
 ```
-Providers
-
-provider 1 | Add New
-
 Applications
 
 a message about now we can create an app!
@@ -50,17 +47,7 @@ a grid of all possible applications
 Full Data
 
 ```
-Providers
-
-provider 1 | provider 2 | Add New
-
 Applications
 
 app 1 | app 2 | Add New
-```
-
-## Provider UI
-
-```
-Big card buttons for each provider that you can click
 ```
