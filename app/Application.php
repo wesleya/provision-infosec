@@ -15,17 +15,16 @@ class Application extends Model
         'type'
     ];
 
-    public static function new($user, $type)
+    public static function new($user)
     {
         $app = new Application();
 
-        $app->type = $type;
         $app->user = $user;
 
         return $app;
     }
 
-    public function provision()
+    public function provision($type)
     {
         /**
          * @todo create application based on type
@@ -37,6 +36,7 @@ class Application extends Model
         $this->external_id = $result->id;
         $this->provider_id = $provider->id;
         $this->user_id = $this->user->id;
+        $this->type = $type;
 
         return $this->save();
     }

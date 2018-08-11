@@ -3,6 +3,8 @@ To Do
 * refactor "Provisions" classes to "Clouds" or "VPS" classes
 * make sure UI is working for linode
 * make get scripts working again
+* add github ssh key so I don't have to keep entering userid and password? not sure how I would do this
+* move the ui to provision through queue, update status etc
 
 Provision Script To Do
 

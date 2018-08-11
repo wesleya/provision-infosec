@@ -10,14 +10,11 @@ class WebApplicationController extends Controller
 {
     public function create(Request $request)
     {
-        $provider = Auth::user()->find(1)->provider;
+        $type = $request->input('type');
+        $user = $request->user();
 
-        $application = Application::new(
-            $request->user(), 
-            $request->input('type')
-        );
-
-        $result = $application->provision();
+        $application = Application::new($user);
+        $result = $application->provision($type);
 
         dd($result);
     }
