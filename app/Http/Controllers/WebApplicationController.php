@@ -10,26 +10,14 @@ class WebApplicationController extends Controller
 {
     public function create(Request $request)
     {
-        $type = $request->input('type');
         $provider = Auth::user()->find(1)->provider;
-        $application = new Application([
-            'type' => $type,
-            'user_id' => Auth::id()
-        ]);
 
+        $application = Application::new(
+            $request->user(), 
+            $request->input('type')
+        );
 
-
-        $result = $application->provision($provider);
-        // and then inside provision() function
-        // $result = $provider->cloud()->webgoat();
-        // and then save application
-
-        /*
-        $provider = Auth::user()->find(1)->provider;
-        $application = $request->input('application');
-
-        $result = $provider->provision($application);
-        */
+        $result = $application->provision();
 
         dd($result);
     }

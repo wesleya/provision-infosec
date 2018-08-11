@@ -1,5 +1,8 @@
+To Do
 
-## To Do
+* refactor "Provisions" classes to "Clouds" or "VPS" classes
+* make sure UI is working for linode
+* make get scripts working again
 
 Provision Script To Do
 
