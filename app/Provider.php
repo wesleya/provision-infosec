@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Provision\DigitalOcean;
+use App\Provision\Linode;
 
 class Provider extends Model
 {
@@ -19,4 +21,26 @@ class Provider extends Model
         'refresh_token',
         'expires'
     ];
+
+
+    public function provision($application)
+    {
+        $provision = $this->getProvision();
+        
+        return $provision->webGoat();
+    }
+
+    protected function getProvision()
+    {
+        switch ($this->type) {
+            case self::TYPE_DIGITALOCEAN:
+                $provision = new DigitalOcean($this->token);
+                break;
+            case self::TYPE_LINODE:
+                $provision = new Linode($this->token);
+                break;
+        }
+
+        return $provision;
+    }
 }

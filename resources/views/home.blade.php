@@ -18,17 +18,43 @@
                 </div>
             </div>
 
+            <br/>
+
             <div class="card">
-              <div class="card-header">Test</div>
+              <div class="card-header">Provider</div>
                 <div class="card-body">
-                  <form method="POST" action="/oauth/digitalocean">
-                    @csrf
-                    <input class="btn btn-primary" type="submit" value="Digital Ocean">
-                  </form>
-                  <form method="POST" action="/oauth/linode">
-                    @csrf
-                    <input class="btn btn-primary" type="submit" value="linode">
-                  </form>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <form method="POST" action="/oauth/digitalocean">
+                        @csrf
+                        <input class="btn btn-primary btn-block" type="submit" value="Digital Ocean">
+                      </form>
+                    </div>
+                    <div class="col-sm-6">
+                      <form method="POST" action="/oauth/linode">
+                        @csrf
+                        <input class="btn btn-primary btn-block" type="submit" value="linode">
+                      </form>
+                    </div>
+                  </div>          
+                </div>
+              </div>
+            <div>
+
+            <br/>
+
+            <div class="card">
+              <div class="card-header">Application</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <form method="POST" action="/web-application">
+                        @csrf
+                        <input type="hidden" name="application" value="webgoat">
+                        <input class="btn btn-primary btn-block" type="submit">
+                      </form>
+                    </div>
+                  </div>          
                 </div>
               </div>
             <div>

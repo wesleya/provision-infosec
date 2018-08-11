@@ -19,6 +19,9 @@ Route::get('/oauth/digitalocean', 'OathDigitalOceanController@index');
 Route::post('/oauth/digitalocean', 'OathDigitalOceanController@create');
 Route::get('/oauth/linode', 'OAuthLinodeController@index');
 Route::post('/oauth/linode', 'OAuthLinodeController@create');
+
+Route::post('/web-application', 'WebApplicationController@create');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
