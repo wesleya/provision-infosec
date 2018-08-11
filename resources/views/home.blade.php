@@ -50,8 +50,8 @@
                     <div class="col-sm-12">
                       <form method="POST" action="/web-application">
                         @csrf
-                        <input type="hidden" name="application" value="webgoat">
-                        <input class="btn btn-primary btn-block" type="submit">
+                        <input type="hidden" name="type" value="{{App\Application::TYPE_WEBGOAT}}">
+                        <input class="btn btn-primary btn-block" type="submit" value="Web Goat">
                       </form>
                     </div>
                   </div>          

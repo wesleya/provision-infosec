@@ -17,7 +17,7 @@ class Linode implements ProvisionInterface
         $this->linode = new Cloud\Linode($adapter);
     }
 
-    public function webGoat()
+    public function webgoat()
     {
         $region = $this->linode->regions()->random()->id;
 /*

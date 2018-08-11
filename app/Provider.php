@@ -22,15 +22,7 @@ class Provider extends Model
         'expires'
     ];
 
-
-    public function provision($application)
-    {
-        $provision = $this->getProvision();
-        
-        return $provision->webGoat();
-    }
-
-    protected function getProvision()
+    public function cloud()
     {
         switch ($this->type) {
             case self::TYPE_DIGITALOCEAN:

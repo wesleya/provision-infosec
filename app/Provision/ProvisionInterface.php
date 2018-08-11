@@ -3,5 +3,5 @@ namespace App\Provision;
 
 interface ProvisionInterface
 {
-    public function webGoat();
+    public function webgoat();
 }
