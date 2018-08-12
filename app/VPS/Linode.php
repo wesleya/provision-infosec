@@ -1,10 +1,10 @@
 <?php
-namespace App\Provision;
+namespace App\VPS;
 
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use App\Cloud;
 
-class Linode implements ProvisionInterface
+class Linode implements VPSInterface
 {
     const SIZE = 'g6-nanode-1';
     const IMAGE = 'linode/ubuntu16.04lts';

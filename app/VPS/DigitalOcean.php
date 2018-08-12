@@ -1,10 +1,10 @@
 <?php
-namespace App\Provision;
+namespace App\VPS;
 
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use DigitalOceanV2\DigitalOceanV2;
 
-class DigitalOcean implements ProvisionInterface
+class DigitalOcean implements VPSInterface
 {
     const SIZE = 's-1vcpu-1gb';
 

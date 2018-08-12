@@ -3,8 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Provision\DigitalOcean;
-use App\Provision\Linode;
+use App\VPS\DigitalOcean;
+use App\VPS\Linode;
 
 class Provider extends Model
 {
@@ -22,17 +22,17 @@ class Provider extends Model
         'expires'
     ];
 
-    public function cloud()
+    public function vps()
     {
         switch ($this->type) {
             case self::TYPE_DIGITALOCEAN:
-                $provision = new DigitalOcean($this->token);
+                $vps = new DigitalOcean($this->token);
                 break;
             case self::TYPE_LINODE:
-                $provision = new Linode($this->token);
+                $vps = new Linode($this->token);
                 break;
         }
 
-        return $provision;
+        return $vps;
     }
 }

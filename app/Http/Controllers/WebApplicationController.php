@@ -13,8 +13,8 @@ class WebApplicationController extends Controller
         $type = $request->input('type');
         $user = $request->user();
 
-        $application = Application::new($user);
-        $result = $application->provision($type);
+        $application = new Application();
+        $result = $application->provision($user, $type);
 
         dd($result);
     }
