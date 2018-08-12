@@ -18,7 +18,7 @@ class Application extends Model
         /**
          * @todo create application based on type
          */
-        $provider = $user->find(1)->provider;
+        $provider = $user->provider;
         $result = $provider->vps()->webgoat();
 
         $this->name = $result->name;

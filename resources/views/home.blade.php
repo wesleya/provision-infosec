@@ -43,8 +43,24 @@
 
             <br/>
 
+            @if (!empty($application))
             <div class="card">
-              <div class="card-header">Application</div>
+              <div class="card-header">Active Application</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      name: {{$application->name}}
+                    </div>
+                  </div>          
+                </div>
+              </div>
+            <div>
+
+            <br/>
+            @endif
+
+            <div class="card">
+              <div class="card-header">Available Applications</div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-12">
