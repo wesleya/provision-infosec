@@ -32,6 +32,8 @@ class Linode implements VPSInterface
 
         $result = $this->linode->create(self::SIZE, self::IMAGE, $region);
 
+        $result->name = $result->label;
+
         return $result;
     }
 }

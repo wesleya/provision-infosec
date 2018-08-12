@@ -57,6 +57,6 @@ class Linode
             "booted" => true
         ];
 
-        return $this->adapter->post($endpoint, $data)->getContents();
+        return json_decode($this->adapter->post($endpoint, $data)->getContents());
     }
 }
