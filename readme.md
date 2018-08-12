@@ -1,10 +1,13 @@
 To Do
 
-* refactor "Provisions" classes to "Clouds" or "VPS" classes
-* make sure UI is working for linode
 * make get scripts working again
 * add github ssh key so I don't have to keep entering userid and password? not sure how I would do this
 * move the ui to provision through queue, update status etc
+* create a script that will check for application status and then update in the database, then we can finally show 
+    * ip address
+    * application status
+    * maybe kick the script off when we create. and then have it stop once we get all the info we need, looping every n seconds?
+    * php artisan monitor {--provider=} {--token=} {--id}
 
 Provision Script To Do
 
