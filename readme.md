@@ -1,6 +1,5 @@
 To Do
 
-* make get scripts working again
 * add github ssh key so I don't have to keep entering userid and password? not sure how I would do this
 * move the ui to provision through queue, update status etc
 * create a script that will check for application status and then update in the database, then we can finally show 
