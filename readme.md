@@ -1,12 +1,20 @@
 To Do
 
-* add github ssh key so I don't have to keep entering userid and password? not sure how I would do this
-* move the ui to provision through queue, update status etc
+* setup IP tables
+* install SSH key
+* run webgoat and dvwebapp on supervisord
+* get dvwebapp working on linode
+* document where I can hit the app once it's installed
+* refactor scripts to be bash script
+* refactor scripts to saved on file system
+
+
 * create a script that will check for application status and then update in the database, then we can finally show 
     * ip address
     * application status
     * maybe kick the script off when we create. and then have it stop once we get all the info we need, looping every n seconds?
-    * php artisan monitor {--provider=} {--token=} {--id}
+    * php artisan monitor {--provider=} {--token=} {--id}  
+  * add github ssh key so I don't have to keep entering userid and password? not sure how I would do this
 
 Provision Script To Do
 
