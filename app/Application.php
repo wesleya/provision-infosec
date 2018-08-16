@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    const TYPE_WEBGOAT = 1;
+    const TYPE_WEBGOAT = 'webgoat';
+    const TYPE_DVWA = 'dvwa';
+
+    static $types = [
+        self::TYPE_WEBGOAT,
+        self::TYPE_DVWA
+    ];
 
     protected $fillable = [
         'user_id',
@@ -15,11 +21,8 @@ class Application extends Model
 
     public function provision($user, $type)
     {
-        /**
-         * @todo create application based on type
-         */
         $provider = $user->provider;
-        $result = $provider->vps()->webgoat();
+        $result = $provider->vps()->create($type);
 
         $this->name = $result->name;
         $this->external_id = $result->id;

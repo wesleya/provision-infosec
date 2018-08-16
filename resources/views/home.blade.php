@@ -63,11 +63,18 @@
               <div class="card-header">Available Applications</div>
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                       <form method="POST" action="/web-application">
                         @csrf
                         <input type="hidden" name="type" value="{{App\Application::TYPE_WEBGOAT}}">
                         <input class="btn btn-primary btn-block" type="submit" value="Web Goat">
+                      </form>
+                    </div>
+                    <div class="col-sm-6">
+                      <form method="POST" action="/web-application">
+                        @csrf
+                        <input type="hidden" name="type" value="{{App\Application::TYPE_DVWA}}">
+                        <input class="btn btn-primary btn-block" type="submit" value="Damn Vulnerable Web Application">
                       </form>
                     </div>
                   </div>          

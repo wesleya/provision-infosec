@@ -3,5 +3,7 @@ namespace App\VPS;
 
 interface VPSInterface
 {
-    public function webgoat();
+    public function __construct($token);
+
+    public function create($type);
 }

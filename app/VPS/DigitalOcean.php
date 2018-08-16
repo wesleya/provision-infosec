@@ -1,6 +1,7 @@
 <?php
 namespace App\VPS;
 
+use App\Application;
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use DigitalOceanV2\DigitalOceanV2;
 use Illuminate\Support\Facades\Storage;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class DigitalOcean implements VPSInterface
 {
     const SIZE = 's-1vcpu-1gb';
+    const IMAGE = 'ubuntu-16-04-x64';
 
     protected $digitalocean;
 
@@ -17,20 +19,13 @@ class DigitalOcean implements VPSInterface
         $this->digitalocean = new DigitalOceanV2($adapter);
     }
 
-    public function webgoat()
+    public function create($type)
     {
-        $userData = Storage::get('scripts/webgoat.sh');
-        $type = "webgoat";
+        if( !in_array($type, Application::$types) ) {
+            throw new \Exception('unknown application type');
+        }
 
-        return $this->createDroplet($type, $userData);
-    }
-
-    public function dvwa()
-    {
-        $userData = Storage::get('scripts/dvwa.sh');
-        $type = "dv-web-app";
-
-        return $this->createDroplet($type, $userData);
+        return $this->createDroplet($type);
     }
 
     protected function getAvailableRegion()
@@ -45,18 +40,16 @@ class DigitalOcean implements VPSInterface
         return $filtered->random()->slug;
     }
 
-    protected function createDroplet($type, $userData)
+    protected function createDroplet($type)
     {
-        $size = self::SIZE;
-        $image = 'ubuntu-16-04-x64';
-        $name = "{$type}-{$size}";
         $region = $this->getAvailableRegion();
+        $userData = Storage::get("scripts/{$type}.sh");
 
         $result = $this->digitalocean->droplet()->create(
-            $name,
+            $type, // name
             $region,
-            $size,
-            $image,
+            self::SIZE,
+            self::IMAGE,
             false, // backups
             false, // ipv6
             false, // private networking

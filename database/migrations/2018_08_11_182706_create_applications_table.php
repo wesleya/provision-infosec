@@ -15,7 +15,7 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('type');
+            $table->string('type');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('provider_id');
             $table->string('external_id');
