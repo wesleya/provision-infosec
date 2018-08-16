@@ -3,6 +3,7 @@ namespace App\VPS;
 
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use DigitalOceanV2\DigitalOceanV2;
+use Illuminate\Support\Facades\Storage;
 
 class DigitalOcean implements VPSInterface
 {
@@ -16,47 +17,20 @@ class DigitalOcean implements VPSInterface
         $this->digitalocean = new DigitalOceanV2($adapter);
     }
 
-    public function webGoat()
+    public function webgoat()
     {
-        $region = $this->getAvailableRegion();
-        $size = self::SIZE;
-        $image = 'ubuntu-16-04-x64';
-        $backups = false;
-        $ipv6 = false;
-        $privateNetworking = false;
-        $sshKeys = ['c3:97:5a:92:c5:dd:56:0c:9c:98:a8:be:f1:b6:b9:c9'];
-        $userData = $this->webGoatScript();
-        $monitoring = false;
-        $volumes = [];
-        $tags = [];
-        $name = "web-goat-{$region}-{$size}";
+        $userData = Storage::get('scripts/webgoat.sh');
+        $type = "webgoat";
 
-        $result = $this->digitalocean->droplet()->create($name, $region, $size, $image, $backups, $ipv6, $privateNetworking, $sshKeys, $userData);
-
-        return $result;
+        return $this->createDroplet($type, $userData);
     }
 
-    /**
-     * user_data logs are in /var/log
-     */
-    public function dvWebApp()
+    public function dvwa()
     {
-        $region = $this->getAvailableRegion();
-        $size = self::SIZE;
-        $image = 'ubuntu-16-04-x64';
-        $backups = false;
-        $ipv6 = false;
-        $privateNetworking = false;
-        $sshKeys = ['c3:97:5a:92:c5:dd:56:0c:9c:98:a8:be:f1:b6:b9:c9'];
-        $userData = $this->dvWebAppScript();
-        $monitoring = false;
-        $volumes = [];
-        $tags = [];
-        $name = "dv-web-app-{$region}-{$size}";
+        $userData = Storage::get('scripts/dvwa.sh');
+        $type = "dv-web-app";
 
-        $result = $this->digitalocean->droplet()->create($name, $region, $size, $image, $backups, $ipv6, $privateNetworking, $sshKeys, $userData);
-
-        return $result;
+        return $this->createDroplet($type, $userData);
     }
 
     protected function getAvailableRegion()
@@ -71,38 +45,25 @@ class DigitalOcean implements VPSInterface
         return $filtered->random()->slug;
     }
 
-    protected function webGoatScript()
+    protected function createDroplet($type, $userData)
     {
-        return "
-#cloud-config
+        $size = self::SIZE;
+        $image = 'ubuntu-16-04-x64';
+        $name = "{$type}-{$size}";
+        $region = $this->getAvailableRegion();
 
-runcmd:
-  - sudo apt-get update  
-  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"
-  - sudo apt-get update
-  - sudo apt-get install -y docker-ce
-  - docker pull webgoat/webgoat-8.0
-  - docker run -p 8080:8080 webgoat/webgoat-8.0 /home/webgoat/start.sh 
-  ";
-    }
+        $result = $this->digitalocean->droplet()->create(
+            $name,
+            $region,
+            $size,
+            $image,
+            false, // backups
+            false, // ipv6
+            false, // private networking
+            ['c3:97:5a:92:c5:dd:56:0c:9c:98:a8:be:f1:b6:b9:c9'], // ssh keys
+            $userData
+        );
 
-    protected function dvWebAppScript()
-    {
-        return "
-#cloud-config
-
-runcmd:
-  - sudo apt-get update  
-  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"
-  - sudo apt-get update
-  - sudo apt-get install -y docker-ce
-  - docker pull vulnerables/web-dvwa
-  - docker run -p 80:80 vulnerables/web-dvwa 
-  ";
-
+        return $result;
     }
 }

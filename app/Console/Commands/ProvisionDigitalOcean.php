@@ -13,7 +13,7 @@ class ProvisionDigitalOcean extends Command
      */
     protected $signature = 'provision:digitalocean 
     {--webgoat : Provision WebGoat on DigitalOcean}
-    {--dv-web-app : Provision WebGoat on DigitalOcean} 
+    {--dvwa : Provision Damn Vulnerable Web Application on DigitalOcean} 
     {--token= : Access token to authorize API request}';
 
     /**
@@ -44,9 +44,9 @@ class ProvisionDigitalOcean extends Command
         $digitalocean = new DigitalOcean($token);
 
         if( $this->option('webgoat') ) {
-            $result = $digitalocean->webGoat();
-        } elseif( $this->option('dv-web-app') ) {
-            $result = $digitalocean->dvWebApp();
+            $result = $digitalocean->webgoat();
+        } elseif( $this->option('dvwa') ) {
+            $result = $digitalocean->dvwa();
         } else {
             dd('application type required');
         }

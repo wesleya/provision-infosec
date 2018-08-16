@@ -45,7 +45,7 @@ class ProvisionLinode extends Command
         $linode = new Linode($token);
 
         if($app == 'webgoat') {
-            $result = $linode->webGoat();
+            $result = $linode->webgoat();
         } else {
             dd('invalid app');
         }
