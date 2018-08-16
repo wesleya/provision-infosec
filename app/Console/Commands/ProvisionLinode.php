@@ -12,7 +12,7 @@ class ProvisionLinode extends Command
      * @var string
      */
     protected $signature = 'provision:linode 
-    {--app= : The app to provision on Linode} 
+    {--app= : The app to provision on Linode [webgoat, dvwa]} 
     {--token= : Access token to authorize API request}';
 
     /**
@@ -41,13 +41,12 @@ class ProvisionLinode extends Command
     {
         $token = $this->option('token');
         $app = $this->option('app');
-
         $linode = new Linode($token);
 
-        if($app == 'webgoat') {
-            $result = $linode->webgoat();
-        } else {
-            dd('invalid app');
+        try {
+            $result = $linode->create($app);
+        } catch (\Exception $e) {
+            $result = $e->getMessage();
         }
 
         dd($result);

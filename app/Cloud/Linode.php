@@ -44,16 +44,16 @@ class Linode
         return collect(json_decode($result)->data);
     }
 
-    public function create($size, $image, $region)
+    public function create($size, $image, $region, $label, $script)
     {
         $endpoint = self::ENDPOINT . 'linode/instances';
         $data = [
             "type" => $size,
             "region" => $region,
             "image" => $image,
-            "label" => "web-goat-{$size}",
+            "label" => $label,
             "root_pass" => 'testPassword1!',
-            "stackscript_id" => 331713,
+            "stackscript_id" => $script,
             "booted" => true
         ];
 

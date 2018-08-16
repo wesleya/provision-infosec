@@ -12,7 +12,7 @@ class ProvisionDigitalOcean extends Command
      * @var string
      */
     protected $signature = 'provision:digitalocean 
-    {--app= : Provision app on DigitalOcean [webgoat, dvwa]}
+    {--app= : App to provision on DigitalOcean [webgoat, dvwa]}
     {--token= : Access token to authorize API request}';
 
     /**
