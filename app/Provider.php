@@ -8,8 +8,8 @@ use App\VPS\Linode;
 
 class Provider extends Model
 {
-    const TYPE_DIGITALOCEAN = 1;
-    const TYPE_LINODE = 2;
+    const TYPE_DIGITALOCEAN = 'digitalocean';
+    const TYPE_LINODE = 'linode';
 
     const STATUS_ACTIVE = 1;
 

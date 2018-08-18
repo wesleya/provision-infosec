@@ -16,7 +16,7 @@ class CreateProvidersTable extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->tinyInteger('type');
+            $table->string('type');
             $table->tinyInteger('status');
             $table->string('token');
             $table->string('refresh_token');

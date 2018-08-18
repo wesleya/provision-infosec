@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/oauth/digitalocean', 'OathDigitalOceanController@index');
-Route::post('/oauth/digitalocean', 'OathDigitalOceanController@create');
-Route::get('/oauth/linode', 'OAuthLinodeController@index');
-Route::post('/oauth/linode', 'OAuthLinodeController@create');
+Route::get('/provider', 'ProviderController@index');
+Route::get('/provider/create', 'ProviderController@create');
+Route::get('/provider/{type}', 'ProviderController@store');
 
+/**
+ * @todo convert this to create/store actions
+ */
 Route::post('/web-application', 'WebApplicationController@create');
 
 Auth::routes();
