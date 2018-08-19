@@ -14,6 +14,11 @@ class Application extends Model
         self::TYPE_DVWA
     ];
 
+    static $names = [
+        self::TYPE_WEBGOAT => 'Web Goat',
+        self::TYPE_DVWA => 'Damn Vulnerable Web App'
+    ];
+
     protected $fillable = [
         'user_id',
         'type'

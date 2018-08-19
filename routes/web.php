@@ -19,11 +19,8 @@ Route::get('/provider', 'ProviderController@index');
 Route::get('/provider/create', 'ProviderController@create');
 Route::get('/provider/{type}', 'ProviderController@store');
 
-/**
- * @todo convert this to create/store actions
- */
-Route::post('/web-application', 'WebApplicationController@create');
+Route::get('/app/create/{type}', 'WebApplicationController@create');
+Route::post('/app', 'WebApplicationController@store');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
