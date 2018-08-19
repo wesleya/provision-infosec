@@ -38,27 +38,37 @@
       <br/>
       @endif
 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">Web Goat</div>
-            <div class="card-body">
-              <a href="app/create/{{App\Application::TYPE_WEBGOAT}}" class="btn btn-primary btn-block">Create</a>          
-            </div>
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-body">
+          <h5 class="card-title">Web Goat</h5>
+          <h6 class="card-subtitle mb-2 text-muted"><a href="https://www.owasp.org">By Owasp</a></h6>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <a href="https://github.com/WebGoat/WebGoat" class="card-link">Documentation</a>
+            <a href="app/create/{{App\Application::TYPE_WEBGOAT}}" class="card-link btn btn-outline-primary">Create</a>
+          </div>
+          <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>       
           </div>
         </div>
 
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">Damn Vulnerable Web App</div>
-            <div class="card-body">
-              <a href="app/create/{{App\Application::TYPE_DVWA}}" class="btn btn-primary btn-block">Create</a>          
-            </div>
+        <div class="card">
+          <div class="card-body">
+          <h5 class="card-title">Damn Vulnerable Web App</h5>
+          <h6 class="card-subtitle mb-2 text-muted"><a href="https://dewhurstsecurity.com/">By Dewhurst Security</a></h6>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <a href="https://github.com/ethicalhack3r/DVWA" class="card-link">Documentation</a>
+            <a href="app/create/{{App\Application::TYPE_DVWA}}" class="card-link btn btn-outline-primary">Create</a>
+          </div>
+          <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>       
           </div>
         </div>
+  
+
       </div>
-      
 
+      
     </div>
   </div>
 </div>
