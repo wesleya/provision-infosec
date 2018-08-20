@@ -43,7 +43,7 @@ class DigitalOcean implements VPSInterface
     protected function createDroplet($type)
     {
         $region = $this->getAvailableRegion();
-        $userData = Storage::get("scripts/{$type}.sh");
+        $userData = Storage::disk('scripts')->get("{$type}.sh");
 
         $result = $this->digitalocean->droplet()->create(
             $type, // name
