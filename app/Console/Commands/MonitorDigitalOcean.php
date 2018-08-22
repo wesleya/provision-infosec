@@ -9,7 +9,6 @@ class MonitorDigitalOcean extends Command
 {
     /**
      * The name and signature of the console command.
-     * php artisan monitor:digitalocean --token=2468dd1e82761bc559d111e179ff3ba227c4f5af935caaa5cfb54276f68ca49e --id=106994922
      * @var string
      */
     protected $signature = 'monitor:digitalocean 
