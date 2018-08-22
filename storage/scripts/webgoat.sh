@@ -9,6 +9,9 @@ apt-get update
 apt-get install -y docker-ce
 DEBIAN_FRONTEND=noninteractive apt-get install -y iptables-persistent
 
+# apt-get adds this to init.d/ so it will restart on boot
+docker pull webgoat/webgoat-8.0
+
 # secure box
 iptables -I INPUT 1 -s 63.150.103.146 -j ACCEPT
 iptables -I INPUT 2 -j DROP
@@ -23,9 +26,6 @@ iptables --policy FORWARD DROP
 iptables-save > /etc/iptables/rules.v4
 ip6tables-save > /etc/iptables/rules.v6
 
-# startup docker again like this so it restarts on reboot
-/etc/init.d/docker restart
-docker pull webgoat/webgoat-8.0
 # use the --restart always so this container auto-runs everytime docker starts
 # which combined with the init.d command above should mean container runs on every reboot
 docker run --restart always -p 80:8080 webgoat/webgoat-8.0 /home/webgoat/start.sh
