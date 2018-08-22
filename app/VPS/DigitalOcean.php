@@ -19,6 +19,13 @@ class DigitalOcean implements VPSInterface
         $this->digitalocean = new DigitalOceanV2($adapter);
     }
 
+    public function status($id)
+    {
+        $result = $this->digitalocean->droplet()->getById($id);
+
+        return $result->status;
+    }
+
     public function create($type)
     {
         if( !in_array($type, Application::$types) ) {
