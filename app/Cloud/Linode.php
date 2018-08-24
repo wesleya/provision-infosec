@@ -44,7 +44,7 @@ class Linode
         return collect(json_decode($result)->data);
     }
 
-    public function create($size, $image, $region, $label, $script)
+    public function create($size, $image, $region, $label, $script, $data)
     {
         $endpoint = self::ENDPOINT . 'linode/instances';
         $data = [
@@ -54,7 +54,8 @@ class Linode
             "label" => $label,
             "root_pass" => 'testPassword1!',
             "stackscript_id" => $script,
-            "booted" => true
+            "booted" => true,
+            "stackscript_data" => $data
         ];
 
         return json_decode($this->adapter->post($endpoint, $data)->getContents());

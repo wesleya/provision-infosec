@@ -13,7 +13,8 @@ class ProvisionDigitalOcean extends Command
      */
     protected $signature = 'provision:digitalocean 
     {--app= : App to provision on DigitalOcean [webgoat, dvwa]}
-    {--token= : Access token to authorize API request}';
+    {--token= : Access token to authorize API request}
+    {--ip= : Access IP address}';
 
     /**
      * The console command description.
@@ -41,10 +42,11 @@ class ProvisionDigitalOcean extends Command
     {
         $token = $this->option('token');
         $app = $this->option('app');
+        $accessIP = $this->option('ip');
         $digitalocean = new DigitalOcean($token);
 
         try {
-            $result = $digitalocean->create($app);
+            $result = $digitalocean->create($app, $accessIP);
         } catch (\Exception $e) {
             $result = $e->getMessage();
         }

@@ -26,26 +26,29 @@ class Linode implements VPSInterface
         $this->linode = new Cloud\Linode($adapter);
     }
 
-    public function create($type)
+    public function create($type, $accessIP)
     {
         if( !in_array($type, Application::$types) ) {
             throw new \Exception('unknown application type');
         }
 
-        return $this->createLinode($type);
+        return $this->createLinode($type, $accessIP);
     }
 
-    public function createLinode($type)
+    public function createLinode($type, $accessIP)
     {
         $region = $this->linode->regions()->random()->id;
         $script = self::$scripts[$type];
+        $data = new \StdClass();
+        $data->ACCESS_IP = $accessIP;
 
         $result = $this->linode->create(
             self::SIZE,
             self::IMAGE,
             $region,
             $type,
-            $script
+            $script,
+            $data
         );
 
         $result->name = $result->label;
