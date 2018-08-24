@@ -24,16 +24,17 @@ class Application extends Model
         'type'
     ];
 
-    public function provision($user, $type)
+    public function provision($user, $type, $accessIP)
     {
         $provider = $user->provider;
-        $result = $provider->vps()->create($type);
+        $result = $provider->vps()->create($type, $accessIP);
 
         $this->name = $result->name;
         $this->external_id = $result->id;
         $this->provider_id = $provider->id;
         $this->user_id = $user->id;
         $this->type = $type;
+        $this->access_ip = $accessIP;
 
         return $this->save();
     }

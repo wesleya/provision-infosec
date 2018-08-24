@@ -13,7 +13,7 @@
               <div class="form-group">
                 <label for="ip">IP address</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="ip" aria-describedby="ipHelp">
+                  <input type="text" class="form-control" id="ip" aria-describedby="ipHelp" name="ip">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2">My IP</button>
                   </div>

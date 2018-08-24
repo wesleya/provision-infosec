@@ -24,6 +24,8 @@ class ProcessProvision implements ShouldQueue
      */
     protected $type;
 
+    protected $accessIP;
+
     /**
      * Create a new job instance.
      *
@@ -31,10 +33,11 @@ class ProcessProvision implements ShouldQueue
      * @param int $type
      * @return void
      */
-    public function __construct(User $user, $type)
+    public function __construct(User $user, $type, $accessIP)
     {
         $this->user = $user;
         $this->type = $type;
+        $this->accessIP = $accessIP;
     }
 
     /**
@@ -44,6 +47,6 @@ class ProcessProvision implements ShouldQueue
      */
     public function handle(Application $application)
     {
-        $application->provision($this->user, $this->type);
+        $application->provision($this->user, $this->type, $this->accessIP);
     }
 }

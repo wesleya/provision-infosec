@@ -20,6 +20,7 @@ class CreateApplicationsTable extends Migration
             $table->unsignedInteger('provider_id');
             $table->string('external_id');
             $table->string('name');
+            $table->ipAddress('access_ip');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

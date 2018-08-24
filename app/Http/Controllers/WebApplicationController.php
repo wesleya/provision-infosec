@@ -17,9 +17,10 @@ class WebApplicationController extends Controller
     public function store(Request $request)
     {
         $type = $request->input('type');
+        $accessIP = $request->input('ip');
         $user = $request->user();
 
-        ProcessProvision::dispatch($user, $type);
+        ProcessProvision::dispatch($user, $type, $accessIP);
         return redirect('home')->with('success', 'Application building!');
     }
 }
