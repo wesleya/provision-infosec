@@ -1,10 +1,10 @@
 #!/bin/bash
 
-sudo apt-get update
-apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt-get update
-sudo apt-get install -y docker-ce
-docker pull vulnerables/web-dvwa
-docker run -p 80:80 vulnerables/web-dvwa
+# run this from the home directory
+cd ~
+
+# clone repo with startup scripts
+git clone https://github.com/wesleya/webgoat.git
+
+# run init script with access ip variable
+source dvwa/init.sh "{ACCESS_IP}" >> init.log
