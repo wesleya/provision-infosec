@@ -7,4 +7,4 @@ cd ~
 git clone https://github.com/wesleya/webgoat.git
 
 # run init script with access ip variable
-source webgoat/init.sh "{ACCESS_IP}" >> init.log
+source webgoat/init.sh "{ACCESS_IP}" >> init.log 2>init-errors.log
