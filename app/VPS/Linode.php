@@ -40,7 +40,7 @@ class Linode implements VPSInterface
         $region = $this->linode->regions()->random()->id;
         $script = self::$scripts[$type];
         $data = new \StdClass();
-        $data->ACCESS_IP = $accessIP;
+        $data->access_ip = $accessIP;
 
         $result = $this->linode->create(
             self::SIZE,

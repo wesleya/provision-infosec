@@ -4,7 +4,7 @@
 cd ~
 
 # clone repo with startup scripts
-git clone https://github.com/wesleya/webgoat.git
+git clone https://github.com/wesleya/dvwa.git
 
 # run init script with access ip variable
 source dvwa/init.sh "{ACCESS_IP}" >> init.log
