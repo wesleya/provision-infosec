@@ -20,7 +20,9 @@ class ApplicationsTableSeeder extends Seeder
             'link_author' => 'https://www.owasp.org',
             'stackscript' => 331713,
             'label' => 'webgoat'
-        ], [
+        ]);
+
+        DB::table('applications')->insert([
             'name' => 'Damn Vulnerable Web App',
             'path' => '/WebGoat',
             'link_docs' => 'https://github.com/ethicalhack3r/DVWA',

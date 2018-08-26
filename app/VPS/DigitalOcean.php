@@ -26,15 +26,6 @@ class DigitalOcean implements VPSInterface
         return $result->status;
     }
 
-    public function create($type, $accessIP)
-    {
-        if( !in_array($type, Application::$types) ) {
-            throw new \Exception('unknown application type');
-        }
-
-        return $this->createDroplet($type, $accessIP);
-    }
-
     protected function getAvailableRegion()
     {
         $regions = $this->digitalocean->region()->getAll();
@@ -47,14 +38,14 @@ class DigitalOcean implements VPSInterface
         return $filtered->random()->slug;
     }
 
-    protected function createDroplet($type, $accessIP)
+    public function create($application, $accessIP)
     {
         $region = $this->getAvailableRegion();
-        $userData = Storage::disk('scripts')->get("{$type}.sh");
+        $userData = Storage::disk('scripts')->get("{$application->label}.sh");
         $userData = str_replace ('{ACCESS_IP}', $accessIP, $userData);
 
         $result = $this->digitalocean->droplet()->create(
-            $type, // name
+            $application->label, // name
             $region,
             self::SIZE,
             self::IMAGE,

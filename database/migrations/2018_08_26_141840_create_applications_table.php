@@ -19,7 +19,7 @@ class CreateApplicationsTable extends Migration
             $table->string('label');
             $table->string('path');
             $table->string('link_docs');
-            $table->string('description');
+            $table->text('description');
             $table->string('author');
             $table->string('link_author');
             $table->unsignedInteger('stackscript');
