@@ -15,16 +15,15 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('provider_id');
-            $table->string('external_id');
             $table->string('name');
-            $table->ipAddress('access_ip');
+            $table->string('label');
+            $table->string('path');
+            $table->string('link_docs');
+            $table->string('description');
+            $table->string('author');
+            $table->string('link_author');
+            $table->unsignedInteger('stackscript');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('provider_id')->references('id')->on('providers');
         });
     }
 

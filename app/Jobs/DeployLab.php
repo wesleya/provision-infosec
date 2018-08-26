@@ -8,9 +8,10 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Application;
+use App\Lab;
+use Illuminate\Http\Request;
 
-class ProcessProvision implements ShouldQueue
+class DeployLab implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,24 +21,21 @@ class ProcessProvision implements ShouldQueue
     protected $user;
 
     /**
-     * @var int
+     * @var array
      */
-    protected $type;
-
-    protected $accessIP;
+    protected $data;
 
     /**
      * Create a new job instance.
      *
      * @param User $user
-     * @param int $type
+     * @param array $data
      * @return void
      */
-    public function __construct(User $user, $type, $accessIP)
+    public function __construct(User $user, $data)
     {
+        $this->data = $data;
         $this->user = $user;
-        $this->type = $type;
-        $this->accessIP = $accessIP;
     }
 
     /**
@@ -45,8 +43,8 @@ class ProcessProvision implements ShouldQueue
      *
      * @return void
      */
-    public function handle(Application $application)
+    public function handle(Lab $lab)
     {
-        $application->provision($this->user, $this->type, $this->accessIP);
+        $lab->provision($this->user, $this->data);
     }
 }

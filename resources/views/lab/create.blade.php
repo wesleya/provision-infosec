@@ -5,9 +5,9 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header">{{\App\Application::$names[$type]}}</div>
+        <div class="card-header">{{$application->name}}</div>
           <div class="card-body">
-            <form method="POST" action="/app">
+            <form method="POST" action="/lab">
               @csrf
 
               <div class="form-group">
@@ -35,7 +35,7 @@
                   </small>
               </div>
 
-              <input type="hidden" name="type" value="{{$type}}">
+              <input type="hidden" name="type" value="{{$application->id}}">
               <input class="btn btn-primary btn-block" type="submit" value="Create">
             </form>            
           </div>

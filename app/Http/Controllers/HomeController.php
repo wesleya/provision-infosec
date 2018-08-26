@@ -23,9 +23,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $application = $request->user()->application;
+        $instance = $request->user()->instance;
 
-        $content = ['application' => $application];
+        $content = ['instance' => $instance];
 
         return view('home', $content);
     }
