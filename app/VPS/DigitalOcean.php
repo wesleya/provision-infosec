@@ -25,10 +25,10 @@ class DigitalOcean implements VPSInterface
         return $result->status;
     }
 
-    public function create($application, $accessIP)
+    public function create($application, $lab)
     {
         $region = $this->getAvailableRegion();
-        $userData = $this->getUserData($accessIP, $application);
+        $userData = $this->getUserData($application, $lab);
 
         return $this->digitalocean->droplet()->create(
             $application->label, // name
@@ -55,10 +55,10 @@ class DigitalOcean implements VPSInterface
         return $filtered->random()->slug;
     }
 
-    protected function getUserData($accessIP, $application)
+    protected function getUserData($application, $lab)
     {
         $userData = Storage::disk('scripts')->get("{$application->label}.sh");
-        $userData = str_replace ('{ACCESS_IP}', $accessIP, $userData);
+        $userData = str_replace ('{ACCESS_IP}', $lab->access_ip, $userData);
 
         return $userData;
     }

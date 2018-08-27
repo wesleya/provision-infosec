@@ -20,9 +20,7 @@ class LabController extends Controller
     {
         $user = $request->user();
         $application = Application::find($request->input('type'));
-        $lab = Lab::create([
-            'access_ip' => $request->input('ip')
-        ]);
+        $lab = Lab::create(['access_ip' => $request->input('ip')]);
 
         DeployLab::dispatch($user, $application, $lab);
         return redirect('home')->with('success', 'Application building!');

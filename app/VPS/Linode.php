@@ -18,10 +18,10 @@ class Linode implements VPSInterface
         $this->linode = new Cloud\Linode($adapter);
     }
 
-    public function create($application, $accessIP)
+    public function create($application, $lab)
     {
         $region = $this->linode->regions()->random()->id;
-        $data = $this->getData($accessIP);
+        $data = $this->getData($lab);
 
         $result = $this->linode->create(
             self::SIZE,
@@ -37,10 +37,10 @@ class Linode implements VPSInterface
         return $result;
     }
 
-    protected function getData($accessIP)
+    protected function getData($lab)
     {
         $data = new \StdClass();
-        $data->access_ip = $accessIP;
+        $data->access_ip = $lab->access_ip;
 
         return $data;
     }
