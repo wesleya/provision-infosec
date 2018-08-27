@@ -1,7 +1,6 @@
 <?php
 namespace App\VPS;
 
-use App\Application;
 use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use DigitalOceanV2\DigitalOceanV2;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +25,24 @@ class DigitalOcean implements VPSInterface
         return $result->status;
     }
 
+    public function create($application, $accessIP)
+    {
+        $region = $this->getAvailableRegion();
+        $userData = $this->getUserData($accessIP, $application);
+
+        return $this->digitalocean->droplet()->create(
+            $application->label, // name
+            $region,
+            self::SIZE,
+            self::IMAGE,
+            false, // backups
+            false, // ipv6
+            false, // private networking
+            ['c3:97:5a:92:c5:dd:56:0c:9c:98:a8:be:f1:b6:b9:c9'], // ssh keys
+            $userData
+        );
+    }
+
     protected function getAvailableRegion()
     {
         $regions = $this->digitalocean->region()->getAll();
@@ -38,24 +55,11 @@ class DigitalOcean implements VPSInterface
         return $filtered->random()->slug;
     }
 
-    public function create($application, $accessIP)
+    protected function getUserData($accessIP, $application)
     {
-        $region = $this->getAvailableRegion();
         $userData = Storage::disk('scripts')->get("{$application->label}.sh");
         $userData = str_replace ('{ACCESS_IP}', $accessIP, $userData);
 
-        $result = $this->digitalocean->droplet()->create(
-            $application->label, // name
-            $region,
-            self::SIZE,
-            self::IMAGE,
-            false, // backups
-            false, // ipv6
-            false, // private networking
-            ['c3:97:5a:92:c5:dd:56:0c:9c:98:a8:be:f1:b6:b9:c9'], // ssh keys
-            $userData
-        );
-
-        return $result;
+        return $userData;
     }
 }

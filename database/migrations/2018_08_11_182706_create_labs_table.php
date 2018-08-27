@@ -15,12 +15,12 @@ class CreateLabsTable extends Migration
     {
         Schema::create('labs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->unsignedInteger('application_id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('provider_id');
-            $table->string('external_id');
-            $table->ipAddress('access_ip');
+            $table->string('name')->nullable();
+            $table->unsignedInteger('application_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('provider_id')->nullable();
+            $table->string('external_id')->nullable();
+            $table->ipAddress('access_ip')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

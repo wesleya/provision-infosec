@@ -21,23 +21,27 @@ class Linode implements VPSInterface
     public function create($application, $accessIP)
     {
         $region = $this->linode->regions()->random()->id;
-        $script = $application->stackscript;
-        $label = $application->label;
-
-        $data = new \StdClass();
-        $data->access_ip = $accessIP;
+        $data = $this->getData($accessIP);
 
         $result = $this->linode->create(
             self::SIZE,
             self::IMAGE,
             $region,
-            $label,
-            $script,
+            $application->label,
+            $application->stackscript,
             $data
         );
 
         $result->name = $result->label;
 
         return $result;
+    }
+
+    protected function getData($accessIP)
+    {
+        $data = new \StdClass();
+        $data->access_ip = $accessIP;
+
+        return $data;
     }
 }

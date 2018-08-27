@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Lab;
+use App\Application;
 use App\Jobs\DeployLab;
 use Illuminate\Http\Request;
-use App\Application;
 
 class LabController extends Controller
 {
@@ -17,10 +18,13 @@ class LabController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
         $user = $request->user();
+        $application = Application::find($request->input('type'));
+        $lab = Lab::create([
+            'access_ip' => $request->input('ip')
+        ]);
 
-        DeployLab::dispatch($user, $data);
+        DeployLab::dispatch($user, $application, $lab);
         return redirect('home')->with('success', 'Application building!');
     }
 }

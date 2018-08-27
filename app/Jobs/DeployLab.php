@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Lab;
-use Illuminate\Http\Request;
+use App\Application;
 
 class DeployLab implements ShouldQueue
 {
@@ -21,21 +21,28 @@ class DeployLab implements ShouldQueue
     protected $user;
 
     /**
-     * @var array
+     * @var Application
      */
-    protected $data;
+    protected $app;
+
+    /**
+     * @var Lab
+     */
+    protected $lab;
 
     /**
      * Create a new job instance.
      *
      * @param User $user
-     * @param array $data
+     * @param Application $app
+     * @param Lab $lab
      * @return void
      */
-    public function __construct(User $user, $data)
+    public function __construct(User $user, Application $app, Lab $lab)
     {
-        $this->data = $data;
+        $this->lab = $lab;
         $this->user = $user;
+        $this->app = $app;
     }
 
     /**
@@ -43,8 +50,18 @@ class DeployLab implements ShouldQueue
      *
      * @return void
      */
-    public function handle(Lab $lab)
+    public function handle()
     {
-        $lab->provision($this->user, $this->data);
+        $provider = $this->user->provider;
+        $result = $provider->vps()->create($this->app, $this->lab);
+
+        Lab::create([
+            'name'           => $result->name,
+            'external_id'    => $result->id,
+            'provider_id'    => $provider->id,
+            'user_id'        => $this->user->id,
+            'access_ip'      => $this->lab->access_ip,
+            'application_id' => $this->app->id
+        ]);
     }
 }
