@@ -1,9 +1,8 @@
 <?php
 namespace App\VPS;
 
-use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use App\Cloud;
-use App\Application;
+use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 
 class Linode implements VPSInterface
 {

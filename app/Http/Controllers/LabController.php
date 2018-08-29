@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Lab;
 use App\Application;
 use App\Jobs\DeployLab;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreLab;
 
 class LabController extends Controller
 {
@@ -16,7 +16,7 @@ class LabController extends Controller
         return view('lab/create', $content);
     }
 
-    public function store(Request $request)
+    public function store(StoreLab $request)
     {
         $user = $request->user();
         $application = Application::find($request->input('type'));
